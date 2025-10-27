@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Australia’s Tourism Recovery (2022–2025)</title>
+
+  <!-- Vega Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <!-- Google Font & CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="navbar">
+    <h1>Australia’s Tourism Recovery Dashboard</h1>
+    <p>Exploring how international visitors and spending trends evolved across Australian states (2022–2025).</p>
+  </header>
+
+  <main>
+    <!-- INTRODUCTION -->
+    <section class="intro">
+      <h2>Introduction</h2>
+      <p>
+        This dashboard visualises the <strong>recovery of Australia’s tourism industry</strong> following the global travel slowdown.
+        It combines international arrival trends, spending distribution across states, and economic correlations to
+        reveal <strong>how tourism has shaped Australia’s post-pandemic growth story</strong>.
+      </p>
+      <p>
+        Together, these charts show how <strong>visitor volumes, expenditure, and geography</strong> interact to form a complete picture
+        of Australia’s tourism resurgence from 2022 to 2025.
+      </p>
+    </section>
+
+    <!-- CHART 1 -->
+    <section>
+      <h2>International Visitor Arrivals by Top 5 Source Countries</h2>
+      <p class="subtitle">
+        This line chart tracks tourism recovery among Australia’s top source countries. Observe how nations differ in pace and magnitude of rebound.
+      </p>
+      <div id="arrivals_line" class="chart extra-wide"></div>
+      <p class="caption">
+        <strong>New Zealand</strong> and <strong>China</strong> lead the rebound, reflecting early travel corridor agreements and restored air connectivity.
+        <br> Meanwhile, arrivals from <strong>UK</strong> and the <strong>US</strong> show steady post-2023 acceleration followed by <strong>India</strong>.
+      </p>
+    </section>
+
+    <!-- CHART 2 -->
+    <section>
+      <h2>Where Do Tourists Spend the Most?</h2>
+      <p class="subtitle">
+        Each circle represents a state. Circle size indicates total international tourist expenditure in Billions (AUD), highlighting how economic activity concentrates geographically.
+      </p>
+      <div id="symbol_map" class="chart extra-wide"></div>
+      <p class="caption">
+        <strong>New South Wales</strong> and <strong>Victoria</strong> dominate international tourism spending due to their urban attractions and global events,
+        while <strong>Queensland</strong> continues its rapid growth powered by leisure destinations like the Gold Coast and Cairns.
+      </p>
+    </section>
+
+    <!-- CHART 3 -->
+    <section>
+      <h2>Visitors vs Expenditure by State</h2>
+      <p class="subtitle">
+        This scatter plot compares <strong>visitor numbers</strong> with <strong>tourism expenditure</strong> per state, across multiple years.
+        Use the dropdown to explore annual shifts in performance.
+      </p>
+      <div id="visitors_expenditure_scatterplot" class="chart extra-wide"></div>
+      <p class="caption">
+        A strong positive correlation shows that higher visitor counts directly translate into greater spending.
+        <br><strong>New South Wales</strong> and <strong>Victoria</strong> consistently lead in both visitors and revenue,
+        while <strong>Queensland’s upward trajectory</strong> signals growing international interest by 2025.
+      </p>
+    </section>
+
+    <!-- SUMMARY -->
+    <section class="summary">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Australia’s tourism fully rebounded by <strong>2025</strong>, with arrivals exceeding pre-pandemic levels for top markets.</li>
+        <li><strong>NSW, VIC, and QLD</strong> together account for over 75% of total international expenditure.</li>
+        <li>Leisure-focused destinations outpaced business travel in recovery, reflecting shifting global tourism behaviour.</li>
+        <li>The positive correlation between visitor counts and expenditure underscores tourism’s central role in Australia’s service economy.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Data Sources:</strong> Tourism Research Australia, Australian Bureau of Statistics (2022–2025)</p>
+    <p><strong>Author:</strong> Vansh Batas | Built with Vega-Lite</p>
+  </footer>
+
+  <!-- Vega Embeds -->
+  <script>
+    const opts = { actions: false, renderer: "canvas" };
+    vegaEmbed("#arrivals_line", "charts/arrivals_line.json", opts);
+    vegaEmbed("#symbol_map", "charts/symbol_map.json", opts);
+    vegaEmbed("#visitors_expenditure_scatterplot", "charts/visitors_expenditure_scatterplot.json", opts);
+  </script>
+</body>
+</html>

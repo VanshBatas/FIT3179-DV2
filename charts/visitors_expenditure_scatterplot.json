@@ -1,0 +1,65 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Scatter plot showing the relationship between visitors and expenditure by state, with a dropdown for year selection.",
+  "width": "container",
+  "height": 450,
+  "data": {
+    "url": "data/visitors_expenditure_by_state_year.csv",
+    "format": {"type": "csv"}
+  },
+  "params": [
+    {
+      "name": "selectedYear",
+      "value": 2025,
+      "bind": {
+        "input": "select",
+        "options": [2022, 2023, 2024, 2025],
+        "name": "Select Year: "
+      }
+    }
+  ],
+  "transform": [
+    {"filter": "datum.Year == selectedYear"},
+    {"calculate": "toNumber(datum.Visitors)", "as": "VisitorsNum"},
+    {"calculate": "toNumber(datum.Expenditure)", "as": "ExpenditureNum"}
+  ],
+  "mark": {
+    "type": "circle",
+    "size": 250,
+    "opacity": 0.8,
+    "stroke": "black",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "x": {
+      "field": "VisitorsNum",
+      "type": "quantitative",
+      "title": "Number of Visitors",
+      "axis": {"grid": false}
+    },
+    "y": {
+      "field": "ExpenditureNum",
+      "type": "quantitative",
+      "title": "Expenditure (B AUD)",
+      "axis": {"grid": false}
+    },
+    "color": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State",
+      "scale": {
+        "scheme": "category10"
+      }
+    },
+    "tooltip": [
+      {"field": "State"},
+      {"field": "VisitorsNum", "title": "Visitors", "format": ","},
+      {"field": "ExpenditureNum", "title": "Expenditure (B AUD)", "format": ".2f"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"labelFontSize": 12, "titleFontSize": 13},
+    "background": "transparent"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bubble map showing international tourist expenditure (B AUD) by Australian state in 2025.",
+  "width": 950,
+  "height": 600,
+  "projection": {
+    "type": "mercator",
+    "center": [134, -29],
+    "scale": 850
+  },
+  "params": [
+    {
+      "name": "selectedYear",
+      "value": 2025,
+      "bind": {
+        "input": "select",
+        "options": [2022, 2023, 2024, 2025],
+        "labels": ["2022", "2023", "2024", "2025"],
+        "name": "Select Year: "
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "data/australia_states.json",
+        "format": { "type": "topojson" }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#dbeafe",
+        "stroke": "#1d4ed8",
+        "strokeWidth": 0.6
+      }
+    },
+    {
+      "data": { "url": "data/expenditure_by_state.csv" },
+      "transform": [{ "filter": "datum.Year == selectedYear" }],
+      "mark": {
+        "type": "circle",
+        "color": "#fb923c",
+        "opacity": 0.8,
+        "stroke": "black",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "longitude": { "field": "Longitude", "type": "quantitative" },
+        "latitude": { "field": "Latitude", "type": "quantitative" },
+        "size": {
+          "field": "Expenditure",
+          "type": "quantitative",
+          "title": "Expenditure (B AUD)",
+          "scale": { "range": [200, 3000] }
+        },
+        "color": {
+          "field": "State",
+          "type": "nominal",
+          "title": "State",
+          "scale": {
+            "domain": [
+              "New South Wales",
+              "Victoria",
+              "Queensland",
+              "South Australia",
+              "Western Australia",
+              "Northern Territory",
+              "Australian Capital Territory",
+              "Tasmania"
+            ],
+            "range": [
+              "#2563eb",
+              "#dc2626",
+              "#16a34a",
+              "#f97316",
+              "#7c3aed",
+              "#eab308",
+              "#06b6d4",
+              "#f59e0b"
+            ]
+          }
+        },
+        "tooltip": [
+          { "field": "State" },
+          {
+            "field": "Expenditure",
+            "title": "Expenditure (B AUD)",
+            "format": ".2f"
+          },
+          {"field": "Year"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": { "stroke": "transparent" },
+    "background": "transparent"
+  }
+}

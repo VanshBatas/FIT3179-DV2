@@ -1,0 +1,61 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Interactive line chart of international visitor arrivals (2022–2025) with country selection.",
+  "width": 800,
+  "height": 400,
+  "data": {
+    "url": "data/visitor_arrivals_by_country.csv",
+    "format": {"type": "csv"}
+  },
+  "params": [
+    {
+      "name": "country_select",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "options": ["All", "New Zealand", "China", "USA", "UK", "India"],
+        "name": "Select Country: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "(country_select == 'All') || (datum.Country == country_select)"
+    }
+  ],
+  "mark": {
+    "type": "line",
+    "point": {"filled": true, "size": 60},
+    "strokeWidth": 3
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {"labelAngle": 0, "titleFontSize": 14, "labelFontSize": 12}
+    },
+    "y": {
+      "field": "Visitors",
+      "type": "quantitative",
+      "title": "Number of Visitors",
+      "axis": {"titleFontSize": 14, "labelFontSize": 12},
+      "scale": {"zero": false}
+    },
+    "color": {
+      "field": "Country",
+      "type": "nominal",
+      "legend": {"title": "Country", "orient": "right"}
+    },
+    "tooltip": [
+      {"field": "Country"},
+      {"field": "Year"},
+      {"field": "Visitors"}
+    ]
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"grid": false},
+    "background": "transparent"
+  }
+}
